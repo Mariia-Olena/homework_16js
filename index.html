@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getFibonacciNumber() {
+            const cache = new Map();
+            
+            return function*(number) {
+                if (cache.has(number)) {
+                    yield cache.get(number);
+                };
+
+                const value = [0, 1];
+
+                for (let i = 2; i < number; i++) {
+                    value.push(value[i - 1] + value[i - 2])
+                };
+
+                cache.set(number, value);
+
+                return value;
+            };
+        };
+
+        const fibonacciNumber = getFibonacciNumber();
+        console.log(fibonacciNumber(8).next());
+        console.log(fibonacciNumber(10).next());
+        console.log(fibonacciNumber(5).next());
+        console.log(fibonacciNumber(8).next());
+        console.log(fibonacciNumber(12).next());
+    </script>
+</body>
+</html>
